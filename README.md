@@ -44,3 +44,8 @@ terraform plan -out plan
 ```sh
 terraform apply plan
 ```
+
+## Post-deployment
+
+1. Enable Istio addon `ibmcloud ks cluster addon enable istio --cluster $CLUSTER_NAME`
+1. Enable Istio Extras addon `ibmcloud ks cluster addon enable istio-extras --cluster $CLUSTER_NAME`
