@@ -1,0 +1,10 @@
+name = "cluster"
+datacenter = "tor01"
+kubernetes_version = "1.15.3"
+
+# Assign a name to your public and private vlans,
+# and use the name here.
+#
+# TODO: Create these vlans with the terraform.
+vlan_public = "tor01-public"
+vlan_private = "tor01-private"
