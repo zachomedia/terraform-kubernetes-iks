@@ -1,51 +1,73 @@
-# Terraform for IBM IKS
+# Terraform for IBM Kubernetes Service
 
-## Getting started
+> **Please note that this module is currently under development.**
 
-### Pre-requisites
+The overall flow for this module is pretty simple:
 
-1. Terraform 0.11 (The IBM provider does not yet Terraform 0.12)
-1. [IBM Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm)
-1. An IBM Object Storage account
+* Create IBM object storage account to store Terraform state
+* Create IBM IKS configuration in a modular manner
+* Deploy the infrastructure incrementally
 
-### Initialize
+## Security Controls
 
-Generate HMAC credentials for your Object Storage account: https://cloud.ibm.com/docs/services/cloud-object-storage/iam?topic=cloud-object-storage-service-credentials#service-credential-endpoints
+The following security controls can be met through configuration of this template:
+
+* TBD
+
+## Dependencies
+
+* None
+
+## Pre-requisites
+
+* Your account must have VRF and Service Endpoints enabled. See the [support documentation](https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint&locale=en-us) for more information.
+* Terraform 0.11 or older (Terraform 0.12 is not yet supported by the IBM provider)
+* [IBM Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm)
+
+## Workflow
+
+1. Create terraform.tfvars based on example template provider.
+
+2. Generate HMAC credentials for your Object Storage account: https://cloud.ibm.com/docs/services/cloud-object-storage/iam?topic=cloud-object-storage-service-credentials#service-credential-endpoints
 
 ```sh
 export AWS_ACCESS_KEY_ID=<access_key>
 export AWS_SECRET_ACCESS_KEY=<secret>
 ```
 
+3. Initialize and set the Terraform backend configuration parameters for the AzureRM provider.
+
 ```sh
 terraform init \
   -backend-config="endpoint=s3.tor01.cloud-object-storage.appdomain.cloud" \
   -backend-config="region=tor01" \
   -backend-config="bucket=tfstate" \
-  -backend-config="key=cluster.tfstate"
+  -backend-config="key=${prefix}-iks.tfstate"
 ```
 
-*Note, replace all values with those appropriate for your environment.*
+(note, if you are using a region other than tor01, update the endpoint and region config)
 
-### Configure
-
-```sh
-cp terraform.tfvars.example terraform.tfvars
-```
-
-## Plan
+4. Create an execution plan and save the generated plan to a file.
 
 ```sh
 terraform plan -out plan
 ```
 
-## Apply
+5. Apply the plan to deploy/update the cluster.
 
 ```sh
+terraform plan -out plan
 terraform apply plan
 ```
 
-## Post-deployment
+8. KubeConfig
 
-1. Enable Istio addon `ibmcloud ks cluster addon enable istio --cluster $CLUSTER_NAME`
-1. Enable Istio Extras addon `ibmcloud ks cluster addon enable istio-extras --cluster $CLUSTER_NAME`
+```sh
+ibmcloud ks cluster-config --cluster ${prefix}
+```
+
+## History
+
+| Date     | Release    | Change      |
+| -------- | ---------- | ----------- |
+| 20190930 | 20190930.1 | 1st release |
