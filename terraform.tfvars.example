@@ -2,6 +2,12 @@ name = "cluster"
 datacenter = "tor01"
 kubernetes_version = "1.15.3"
 
+node_size = "b3c.4x16"
+node_count = 3
+
+edge_node_size = "u3c.2x4"
+edge_node_count = 2
+
 # Assign a name to your public and private vlans,
 # and use the name here.
 #
