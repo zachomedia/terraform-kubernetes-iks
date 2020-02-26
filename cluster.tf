@@ -1,9 +1,9 @@
 resource "ibm_container_cluster" "cluster" {
-  name       = "${var.name}"
-  billing    = "hourly"
-  datacenter = "${var.datacenter}"
+  name       = var.name
+  datacenter = var.datacenter
 
-  kube_version = "${var.kubernetes_version}"
+  kube_version       = var.kubernetes_version
+  update_all_workers = true
 
   public_vlan_id  = var.vlan_public_id
   private_vlan_id = var.vlan_private_id
@@ -13,8 +13,8 @@ resource "ibm_container_cluster" "cluster" {
 
   gateway_enabled = true
 
-  machine_type      = "${var.node_size}"
+  machine_type      = var.node_size
   hardware          = "shared"
-  default_pool_size = "${var.node_count}"
+  default_pool_size = var.node_count
   disk_encryption   = true
 }
