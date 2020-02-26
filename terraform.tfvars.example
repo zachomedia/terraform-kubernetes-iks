@@ -9,8 +9,6 @@ edge_node_size = "u3c.2x4"
 edge_node_count = 2
 
 # Assign a name to your public and private vlans,
-# and use the name here.
-#
-# TODO: Create these vlans with the terraform.
-vlan_public = "tor01-public"
-vlan_private = "tor01-private"
+# and use the id here.
+vlan_public = "12345"
+vlan_private = "12345"

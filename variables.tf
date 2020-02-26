@@ -22,5 +22,5 @@ variable "edge_node_count" {
 
 
 # Network
-variable "vlan_public" {}
-variable "vlan_private" {}
+variable "vlan_public_id" {}
+variable "vlan_private_id" {}

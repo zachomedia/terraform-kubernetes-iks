@@ -5,8 +5,8 @@ resource "ibm_container_cluster" "cluster" {
 
   kube_version = "${var.kubernetes_version}"
 
-  public_vlan_id  = "${data.ibm_network_vlan.public.id}"
-  private_vlan_id = "${data.ibm_network_vlan.private.id}"
+  public_vlan_id  = var.vlan_public_id
+  private_vlan_id = var.vlan_private_id
 
   public_service_endpoint  = false
   private_service_endpoint = true
