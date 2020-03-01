@@ -19,8 +19,8 @@ resource "ibm_container_cluster" "cluster" {
   disk_encryption   = true
 }
 
-resource "null_resource" "cluster_addon_istio" {
-  provisioner "local-exec" {
-    command = "ibmcloud ks cluster addon enable istio --cluster '${ibm_container_cluster.cluster.name}'"
-  }
-}
+# resource "null_resource" "cluster_addon_istio" {
+#   provisioner "local-exec" {
+#     command = "ibmcloud ks cluster addon enable istio --cluster '${ibm_container_cluster.cluster.name}'"
+#   }
+# }
